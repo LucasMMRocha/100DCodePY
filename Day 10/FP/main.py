@@ -1,5 +1,7 @@
 #Calculator
 
+from art import logo
+
 #Add
 def add(n1, n2):
   return n1 + n2
@@ -26,14 +28,18 @@ operations = {
   "/": divide
 }
 
-should_continue = True
+
 
 def calculation():
+
+  print(logo)
 
   num1 = float(input("What is the first number? "))
 
   for symbol in operations:
     print(symbol)
+
+  should_continue = True
 
   while should_continue:
 
