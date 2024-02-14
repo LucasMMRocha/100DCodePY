@@ -8,49 +8,71 @@
 #   $1.50          $2.50           $3.00
 
 from resourses import MENU
-from resourses import resorses
+from resourses import resources
+
 total_money = 0
 should_continue = True
 
 def espresso():
-  resorses["water"] -= MENU[0][0]["water"]
-  resorses["coffee"] -= MENU[0][0]["coffee"]
+  global total_money
+  resources["water"] -= MENU["espresso"]["ingredients"]["water"]
+  resources["coffee"] -= MENU["espresso"]["ingredients"]["coffee"]
   total_money += 1.50
 
   
 def latte():
-  resorses["water"] -= MENU[1][0]["water"]
-  resorses["coffee"] -= MENU[1][0]["coffee"]
-  resorses["milk"] -= MENU[1][0]["milk"]
+  global total_money
+  resources["water"] -= MENU["latte"]["ingredients"]["water"]
+  resources["coffee"] -= MENU["latte"]["ingredients"]["coffee"]
+  resources["milk"] -= MENU["latte"]["ingredients"]["milk"]
   total_money += 2.50
   
 def cappuccino():
-  resorses["water"] -= MENU[2][0]["water"]
-  resorses["coffee"] -= MENU[2][0]["coffee"]
-  resorses["milk"] -= MENU[2][0]["milk"]
+  global total_money
+  resources["water"] -= MENU["cappuccino"]["ingredients"]["water"]
+  resources["coffee"] -= MENU["cappuccino"]["ingredients"]["coffee"]
+  resources["milk"] -= MENU["cappuccino"]["ingredients"]["milk"]
   total_money += 3.00
+
   
 while should_continue:
-
-  drink = input("What would you like? (expresso/latte/cappuccino):")
   
-  if resorses["water"]  < MENU[drink][0]["water"]:
+  drink = input("What would you like? (espresso/latte/cappuccino):").lower()
+  
+  if drink == 'espresso':
+    espresso()
+    
+  elif drink == 'latte':
+    latte()
+  
+  elif drink == 'cappuccino':
+    cappuccino()
+    if resources["milk"] < MENU[drink]["ingredients"]["milk"]:
+      print("Sorry there is not enough milk.")
+      
+  if resources["water"]  < MENU[drink]["ingredients"]["water"]:
     print("Sorry there is not enough water.")
   
-  if resorses["coffe"] < MENU[drink][0]["coffee"]:
+  elif resources["coffee"] < MENU[drink]["ingredients"]["coffee"]:
     print("Sorry there is not enough coffee.")
     
-  if resorses["milk"] < MENU[drink][0]["milk"]:
-    print("Sorry there is not enough milk.")
+  
     
   print("Please insert coins.")
 
-  quarters = int(input("how many quarters?"))
-  dimes = int(input("how many dimes?"))
-  nickles = int(input("how many nickels?"))
-  pennies = int(input("how many pennies?"))
+  quarters = 0.25
+  dimes = 0.1
+  nickles = 0.05
+  pennies = 0.01
+
+  quarters *= int(input("how many quarters?"))
+  dimes *= int(input("how many dimes?"))
+  nickles *= int(input("how many nickels?"))
+  pennies *= int(input("how many pennies?"))
   
   total = quarters + dimes + nickles + pennies
   
-  if total < MENU[drink][1]:
+  change = total - MENU[drink]["cost"]
+  
+  if total < MENU[drink]["cost"]:
     print("Sorry there is not enough money.\nMoney refunded.")
