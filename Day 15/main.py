@@ -1,7 +1,7 @@
 from resourses import MENU
 from resourses import resources
 
-should_continue = True
+is_on = True
 
 
 def espresso():
@@ -21,54 +21,62 @@ def cappuccino():
     resources["milk"] -= MENU["cappuccino"]["ingredients"]["milk"]
 
 
-total_money = 0
-
-while should_continue:
+while is_on:
 
     drink = input("What would you like? (espresso/latte/cappuccino):")
+    
+    if drink == 'off':
+        is_on = False
+    
+    elif not drink == 'report':
+        if resources["water"] < MENU[drink]["ingredients"]["water"]:
+            print("Sorry there is not enough water.")
 
-    if resources["water"] < MENU[drink]["ingredients"]["water"]:
-        print("Sorry there is not enough water.")
+        elif resources["coffee"] < MENU[drink]["ingredients"]["coffee"]:
+            print("Sorry there is not enough coffee.")
 
-    elif resources["coffee"] < MENU[drink]["ingredients"]["coffee"]:
-        print("Sorry there is not enough coffee.")
+        if not drink == 'espresso':
+            if resources["milk"] < MENU[drink]["ingredients"]["milk"]:
+                print("Sorry there is not enough milk.")
 
-    if not drink == 'espresso':
-        if resources["milk"] < MENU[drink]["ingredients"]["milk"]:
-            print("Sorry there is not enough milk.")
+        print("Please insert coins.")
 
-    print("Please insert coins.")
+        quarters = int(input("how many quarters?"))
+        dimes = int(input("how many dimes?"))
+        nickles = int(input("how many nickels?"))
+        pennies = int(input("how many pennies?"))
 
-    quarters = int(input("how many quarters?"))
-    dimes = int(input("how many dimes?"))
-    nickles = int(input("how many nickels?"))
-    pennies = int(input("how many pennies?"))
+        total = (quarters*0.25) + (dimes*0.10) + (nickles*0.05) + (pennies*0.01)
 
-    total = (quarters*0.25) + (dimes*0.10) + (nickles*0.05) + (pennies*0.01)
+        change = total - MENU[drink]["cost"]
+        change_rounded = round(change, 2)
+        
+        if drink == 'espresso':
+            if total < MENU["espresso"]["cost"]:
+                print("Sorry there is not enough money.\nMoney refunded.")
+            else:
+                espresso()
+                resources["money"] += MENU["espresso"]["cost"]
+                print(f"Here is your espresso, and your change is {change_rounded}")
 
-    change = total - MENU[drink]["cost"]
+        elif drink == 'latte':
+            if total < MENU["latte"]["cost"]:
+                print("Sorry there is not enough money.\nMoney refunded.")
+            else:
+                latte()
+                resources["money"] += MENU["latte"]["cost"]
+                print(f"Here is your latte, and your change is {change_rounded}")
 
-    if drink == 'espresso':
-        if total < MENU["espresso"]["cost"]:
-            print("Sorry there is not enough money.\nMoney refunded.")
-        else:
-            espresso()
-            total_money += MENU["espresso"]["cost"]
-            print(f"Here is your espresso, and your change is {change}")
-
-    elif drink == 'latte':
-        if total < MENU["latte"]["cost"]:
-            print("Sorry there is not enough money.\nMoney refunded.")
-        else:
-            latte()
-            total_money += MENU["latte"]["cost"]
-            print(f"Here is your latte, and your change is {change}")
-
-    elif drink == 'cappuccino':
-        if total < MENU["cappuccino"]["cost"]:
-            print("Sorry there is not enough money.\nMoney refunded.")
-        else:
-            cappuccino()
-            total_money += MENU["cappuccino"]["cost"]
-            print(f"Here is your cappuccino, and your change is {change}")
-            print("Sorry")
+        elif drink == 'cappuccino':
+            if total < MENU["cappuccino"]["cost"]:
+                print("Sorry there is not enough money.\nMoney refunded.")
+            else:
+                cappuccino()
+                resources["money"] += MENU["cappuccino"]["cost"]
+                print(f"Here is your cappuccino, and your change is {change_rounded}")
+                print("Sorry")
+    else:
+        print(f"{resources["water"]}")
+        print(f"{resources["milk"]}")
+        print(f"{resources["coffee"]}")
+        print(f"{resources["money"]}")
