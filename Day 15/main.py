@@ -70,3 +70,4 @@ while should_continue:
         cappuccino()
         total_money += MENU["cappuccino"]["cost"]
         print(f"Here is your cappuccino, and your change is {change}")
+        print("Sorry")
