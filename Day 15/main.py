@@ -25,7 +25,7 @@ total_money = 0
 
 while should_continue:
 
-    drink = input("What would you like? (expresso/latte/cappuccino):")
+    drink = input("What would you like? (espresso/latte/cappuccino):")
 
     print(f"{MENU[drink]["cost"]}")
 
