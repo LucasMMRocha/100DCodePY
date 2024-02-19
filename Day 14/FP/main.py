@@ -33,6 +33,7 @@ while True:
   print(f"Against B: {key_b1}, a {key_b3}, from {key_b4}")
   
   answer = input("Who has more followers? Type 'A' or 'B': ").lower()
+
   if data[rand_numb_a]['follower_count'] > data[rand_numb_b]['follower_count'] and answer == 'a':
     score += 1
   
