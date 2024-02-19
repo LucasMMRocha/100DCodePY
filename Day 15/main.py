@@ -27,8 +27,6 @@ while should_continue:
 
     drink = input("What would you like? (espresso/latte/cappuccino):")
 
-    print(f"{MENU[drink]["cost"]}")
-
     if resources["water"] < MENU[drink]["ingredients"]["water"]:
         print("Sorry there is not enough water.")
 
@@ -53,21 +51,24 @@ while should_continue:
     if drink == 'espresso':
         if total < MENU["espresso"]["cost"]:
             print("Sorry there is not enough money.\nMoney refunded.")
-        espresso()
-        total_money += MENU["espresso"]["cost"]
-        print(f"Here is your espresso, and your change is {change}")
+        else:
+            espresso()
+            total_money += MENU["espresso"]["cost"]
+            print(f"Here is your espresso, and your change is {change}")
 
     elif drink == 'latte':
         if total < MENU["latte"]["cost"]:
             print("Sorry there is not enough money.\nMoney refunded.")
-        latte()
-        total_money += MENU["latte"]["cost"]
-        print(f"Here is your latte, and your change is {change}")
+        else:
+            latte()
+            total_money += MENU["latte"]["cost"]
+            print(f"Here is your latte, and your change is {change}")
 
     elif drink == 'cappuccino':
         if total < MENU["cappuccino"]["cost"]:
             print("Sorry there is not enough money.\nMoney refunded.")
-        cappuccino()
-        total_money += MENU["cappuccino"]["cost"]
-        print(f"Here is your cappuccino, and your change is {change}")
-        print("Sorry")
+        else:
+            cappuccino()
+            total_money += MENU["cappuccino"]["cost"]
+            print(f"Here is your cappuccino, and your change is {change}")
+            print("Sorry")
