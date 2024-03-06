@@ -25,6 +25,8 @@ while game_is_on:
     if player.ycor() == 280:
         score_board.update_score()
         player.goto(0, -280)
+        car_manager.more_speed()
+
     for car in car_manager.all_cars:
         if car.distance(player) < 20:
             score_board.game_over()
