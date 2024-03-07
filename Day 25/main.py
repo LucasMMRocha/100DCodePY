@@ -22,6 +22,12 @@ data = pandas.read_csv("weather_data.csv")
 # total = sum(temp_list)
 # average_temp = total / len(temp_list)
 
-max_value = data.max()
+# print(data["temp"].mean())
+# print(data["temp"].max())
+#
+# # Get Data in Columns
+# print(data["condition"])
+# print(data.condition)
 
-print(max_value)
+# Get data in Row
+print(data[data.temp == data.temp.max()])
