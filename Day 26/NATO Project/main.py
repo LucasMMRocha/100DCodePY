@@ -15,3 +15,5 @@ letters = [letter for letter in word]
 nato_code = [nato_dict.get(letter.upper()) for letter in word]
 
 print(nato_code)
+
+60310022134
